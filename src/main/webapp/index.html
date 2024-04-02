@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="img/izquierda.gif"
+      type="image/gif"
+      sizes="16x16"
+    />
+    <title>Manejo de motor</title>
+    <style>
+      #body {
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+      }
+      button {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin: 10px;
+      }
+      .centrar {
+        display: flex;
+        justify-content: center;
+      }
+      #motor {
+        width: 30vw;
+        height: 60vh;
+      }
+      h3 {
+        font-size: 4em;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body id="body">
+    <div class="centrar">
+      <button onclick="disabledButtons(this.id)" id="boton1">
+        <img src="img/flecha-izquierda.png" alt="Izquierda" />
+      </button>
+      <button onclick="disabledButtons(this.id)" id="boton2" disabled>
+        <img src="img/pausa.png" alt="Pausa" />
+      </button>
+      <button onclick="disabledButtons(this.id)" id="boton3">
+        <img src="img/flecha-correcta.png" alt="Derecha" />
+      </button>
+      <br />
+    </div>
+    <div class="centrar">
+      <img src="" alt="motor" id="motor" />
+    </div>
+    <h3 id="fecha"></h3>
+
+    <script>
+      function disabledButtons(e) {
+        document.getElementById("boton1").disabled = false;
+        document.getElementById("boton2").disabled = false;
+        document.getElementById("boton3").disabled = false;
+        document.getElementById(e).disabled = true;
+
+        if (e === "boton1") {
+          document.getElementById("motor").src = "img/izquierda.gif";
+          document.getElementById("body").style.backgroundImage =
+            "url('img/viento-izquierda.gif')";
+        } else if (e === "boton2") {
+          document.getElementById("motor").src = "img/detenido.gif";
+          document.getElementById("body").style.backgroundImage = "none";
+        } else {
+          document.getElementById("motor").src = "img/derecha.gif";
+          document.getElementById("body").style.backgroundImage =
+            "url(img/viento.gif')";
+        }
+
+        setInterval(() => {
+          const dia = new Date();
+          const day = {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          };
+          const time = {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          };
+          document.getElementById(
+            "fecha"
+          ).innerHTML = `${dia.toLocaleTimeString(
+            "es-ES",
+            time
+          )} - ${dia.toLocaleDateString("es-ES", day)}`;
+        }, 1000);
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        disabledButtons("boton2");
+      });
+    </script>
+  </body>
+</html>
